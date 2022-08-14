@@ -21,8 +21,7 @@ public class LessonServiceImp implements LessonService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void save(String name) {
-        Lesson lesson = new Lesson(name);
+    public void save(Lesson lesson) {
         //Lesson lesson1 = new Lesson(name);
         this.lessonRepository.save(lesson);
         //this.lessonRepository.save(lesson1);
@@ -42,14 +41,13 @@ public class LessonServiceImp implements LessonService {
 
     @Transactional
     @Override
-    public void delete(Long id) {
-        this.lessonRepository.deleteById(id);
+    public void delete(Lesson lesson) {
+        this.lessonRepository.delete(lesson);
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public List<LessonDTO> findAll() {
-        return modelMapperHelper.mapAll(
-                (List<Lesson>)this.lessonRepository.findAll()
-                ,LessonDTO.class);
+    public List<Lesson> findAll() {
+        return (List<Lesson>) this.lessonRepository.findAll();
     }
 }

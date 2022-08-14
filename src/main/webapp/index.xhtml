@@ -1,16 +1,69 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+
+	  xmlns:p="http://primefaces.org/ui">
+
 
 <h:head></h:head>
 <body>
 	<h:form>
 		<h:outputLabel value="Okul Adı" />
 		<h:inputText value="#{schoolController.school.name}" />
-		<h:commandButton value="Kaydet"
-						 actionListener="#{schoolController.save}" />
+		<h:commandButton value="Kaydet" style="margin-top: 50px;margin-bottom: 50px"
+						 actionListener="#{schoolController.save}" styleClass="ui-priority-primary" />
+		<p:dataTable id="schoolTableId"
+					 var="sch" value="#{schoolController.getList()}">
+			<f:facet name="header">
+				Okul Listesi
+			</f:facet>
+			<p:column headerText="Numara">
+				<h:outputText value="#{sch.id}" />
+			</p:column>
+			<p:column headerText="Adı">
+				<h:outputText value="#{sch.name}" />
+			</p:column>
+			<p:column headerText="Sil/Güncelle">
+				<h:commandButton value="Sil"
+								 actionListener="#{schoolController.delete(sch) }"
+								 styleClass="ui-priority-primary"
+				/>
+				<h:commandButton value="Güncelle"
+								 actionListener="#{schoolController.update(sch)}"
+								 styleClass="ui-priority-primary"
+				/>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<h:form>
+		<h:outputLabel value="Ders Adı" />
+		<h:inputText value="#{lessonController.lesson.name}" />
+		<h:commandButton value="Kaydet" style="margin-top: 50px;margin-bottom: 50px"
+						 actionListener="#{lessonController.save}" styleClass="ui-priority-primary"/>
+		<p:dataTable id="lessonTableId"
+					 var="lss" value="#{lessonController.getList()}">
+		<f:facet name="header">
+			Ders Listesi
+		</f:facet>
+		<p:column headerText="Numara">
+			<h:outputText value="#{lss.id}" />
+		</p:column>
+		<p:column headerText="Adı">
+			<h:outputText value="#{lss.name}" />
+		</p:column>
+			<p:column headerText="Sil/Güncelle">
+				<h:commandButton value="Sil"
+								 actionListener="#{lessonController.delete(lss)}"
+								 styleClass="ui-priority-primary"
+				/>
+				<h:commandButton value="Güncelle"
+								 actionListener="#{lessonController.update(lss)}"
+								 styleClass="ui-priority-primary"
+				/>
+			</p:column>
+		</p:dataTable>
 	</h:form>
 </body>
 </html>
