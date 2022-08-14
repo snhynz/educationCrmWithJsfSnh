@@ -1,4 +1,4 @@
-package com.example.helloJsf;
+package com.example.educationCrm.helloJsf;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

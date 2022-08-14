@@ -1,20 +1,17 @@
-package com.example.config;
+package com.example.educationCrm.config;
 
-import com.example.scope.ViewScope;
+import com.example.educationCrm.scope.ViewScope;
 import com.sun.faces.config.ConfigureListener;
 import org.springframework.beans.factory.config.CustomScopeConfigurer;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 public class JSFConfig implements ServletContextAware {
