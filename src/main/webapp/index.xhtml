@@ -7,9 +7,10 @@
 <h:head></h:head>
 <body>
 	<h:form>
-		<h:outputLabel value="#{helloController.message}" />
-		<h:commandButton value="Hello World!"
-						 actionListener="#{helloController.clickHelloWorldButton}" />
+		<h:outputLabel value="Okul Adı" />
+		<h:inputText value="#{schoolController.school.name}" />
+		<h:commandButton value="Kaydet"
+						 actionListener="#{schoolController.save}" />
 	</h:form>
 </body>
 </html>

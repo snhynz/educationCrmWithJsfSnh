@@ -19,8 +19,7 @@ public class SchoolServiceImp implements SchoolService {
 
     @Transactional
     @Override
-    public void save(String name) {
-        School school = new School(name);
+    public void save(School school) {
         this.schoolRepository.save(school);
     }
 

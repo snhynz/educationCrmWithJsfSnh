@@ -4,11 +4,15 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 @Scope(value = "view")
 @Controller
+@Getter
+@Setter
 public class HelloController implements Serializable {
 	private String message = "test test";
 	@PostConstruct
@@ -17,11 +21,5 @@ public class HelloController implements Serializable {
 	}
 	public void clickHelloWorldButton() {
 		System.out.println("Merhaba Dünya Tıklandı !");
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
 	}
 }
