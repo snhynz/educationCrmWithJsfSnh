@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+    <ui:composition template = "pageTemplate.xhtml">
+    <ui:define name = "content">
+        <h:form>
+    <p:outputLabel value="Okul Adı" />
+    <p:inputText value="#{schoolController.school.name}" />
+    <p:commandButton value="Kaydet" style="margin-top: 50px;margin-bottom: 50px"
+                     actionListener="#{schoolController.save}" />
+    <p:dataTable id="schoolTableId"
+                 var="sch" value="#{schoolController.getList()}">
+        <f:facet name="header">
+            Okul Listesi
+        </f:facet>
+        <p:column headerText="Numara">
+            <h:outputText value="#{sch.id}" />
+        </p:column>
+        <p:column headerText="Adı">
+            <h:outputText value="#{sch.name}" />
+        </p:column>
+        <p:column headerText="Sil/Güncelle">
+            <p:commandButton value="Sil"
+                             actionListener="#{schoolController.delete(sch) }"
+                             styleClass="ui-priority-primary"
+            />
+            <p:commandButton value="Güncelle"
+                             actionListener="#{schoolController.update(sch)}"
+                             styleClass="ui-priority-primary"
+            />
+        </p:column>
+    </p:dataTable>
+</h:form>
+</ui:define>
+</ui:composition>
+        </body>
+        </html>
