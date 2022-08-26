@@ -3,6 +3,7 @@ package com.example.educationCrm.serviceImp;
 import com.example.educationCrm.helper.ModelMapperHelper;
 import com.example.educationCrm.model.dto.LessonDTO;
 import com.example.educationCrm.model.entity.Lesson;
+import com.example.educationCrm.model.entity.Teacher;
 import com.example.educationCrm.repository.LessonRepository;
 import com.example.educationCrm.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,8 @@ public class LessonServiceImp implements LessonService {
 
     @Transactional
     @Override
-    public void update(LessonDTO lessonDTO) {
-        Optional<Lesson> lessonOptional =
-                this.lessonRepository.findById(lessonDTO.getId());
-        if(lessonOptional.isPresent()){
-            Lesson lesson= lessonOptional.get();
-            lesson.setName(lessonDTO.getName());
-            this.lessonRepository.save(lesson);
-        }
+    public void update(Lesson lesson) {
+        this.lessonRepository.save(lesson);
     }
 
     @Transactional
@@ -49,5 +44,9 @@ public class LessonServiceImp implements LessonService {
     @Override
     public List<Lesson> findAll() {
         return (List<Lesson>) this.lessonRepository.findAll();
+    }
+    @Override
+    public Lesson findByName(String name) {
+        return this.lessonRepository.findLessonByName(name);
     }
 }

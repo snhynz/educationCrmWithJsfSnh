@@ -21,18 +21,48 @@ public class LessonController {
     private Lesson lesson;
     private Lesson selectedLesson;
 
+    private List<Lesson> lessonList;
+
     @Autowired
     private LessonService lessonService;
 
     @PostConstruct
     private void init (){
         this.lesson=new Lesson();
+        this.lessonList = lessonService.findAll();
     }
 
     public void save(){
         this.lessonService.save(this.lesson);
-        infoMessage("Başarılı Kayıt ", "Kaydedilen Ders :",this.lesson);
+        infoMessage("Başarılı Kayıt ",
+                "Kaydedilen Ders :",this.lesson);
         this.lesson=new Lesson();
+    }
+
+    public List<Lesson> getList(){return this.lessonService.findAll();}
+
+    public void delete(){
+        this.lessonService.delete(selectedLesson);
+        infoMessage("Başarılı Silindi",
+                "Silinen Ders : ",this.selectedLesson);
+        selectedLesson=new Lesson();
+    }
+    public void update(Lesson lesson){
+        this.lessonService.update(this.selectedLesson);
+        infoMessage("Güncellendi.",
+                "Güncellenen Ders : ",this.selectedLesson);
+        this.selectedLesson = new Lesson();
+    }
+
+    public void selectLesson(Lesson lesson){
+        this.selectedLesson=lesson;
+    }
+
+    public void clearSelectedLesson(){
+        this.selectedLesson=new Lesson();
+    }
+    public void selectLessonForUpdate(Lesson lesson){
+        this.lesson = lesson;
     }
     public void infoMessage(String summary, String detail, Lesson lesson) {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -40,25 +70,5 @@ public class LessonController {
         context.addMessage
                 (null, new FacesMessage(summary,
                         detail+ lesson.getName()) );
-    }
-    public List<Lesson> getList(){return this.lessonService.findAll();}
-
-    public void delete(){
-        this.lessonService.delete(selectedLesson);
-        infoMessage("Başarılı Silindi","Silinen Ders : ",this.selectedLesson);
-        selectedLesson=new Lesson();
-    }
-    public void update(Lesson lesson){
-        this.lesson=lesson;
-    }
-
-    public void selectLesson(Lesson lesson){
-        System.out.println("abc"+lesson.getName());
-        this.selectedLesson=lesson;
-    }
-
-    public void clearSelectedLesson(){
-        System.out.println("abc"+lesson.getName());
-        this.selectedLesson=new Lesson();
     }
 }

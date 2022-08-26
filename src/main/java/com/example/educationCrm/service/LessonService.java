@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface LessonService {
     public void save(Lesson lesson);
-    public void update(LessonDTO lessonDTO);
+    public void update(Lesson lesson);
     public void delete(Lesson lesson);
     public List<Lesson> findAll();
+    public Lesson findByName(String name);
 }

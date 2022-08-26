@@ -40,7 +40,9 @@ public class SchoolServiceImp implements SchoolService {
     public void delete(School school) {
         this.schoolRepository.delete(school);
     }
-
+    public School findByName(String name) {
+        return this.schoolRepository.findSchoolByName(name);
+    }
     @Transactional(readOnly = true)
     @Override
     public List<SchoolInformationDTO> findAllName() {

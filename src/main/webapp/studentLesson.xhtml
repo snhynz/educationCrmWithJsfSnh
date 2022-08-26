@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head></h:head>
+<body>
+<ui:composition template = "pageTemplate.xhtml">
+    <ui:define name = "content">
+        <p:growl id="growlId" showDetail="true" />
+        <h:form id="lessonFormId">
+            <p:dataTable id="lessonTableId"
+                         rows="10"
+                         paginator="true"
+                         rowsPerPageTemplate="5,10,15"
+                         var="lss" value="#{lessonController.getList()}">
+                <f:facet name="header">
+                    <p:outputLabel value="Ders Listesi" />
+                    <p:commandButton icon="fa fa-plus"
+                                     style="float: right"
+                                     onclick="PF('ekleDialog').show()"
+                    />
+                    <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="fa fa-align-justify" />
+                    <p:columnToggler datasource="lessonTableId" trigger="toggler" />
+                </f:facet>
+
+                <p:column headerText="Numara">
+                    <h:outputText value="#{lss.id}" />
+                </p:column>
+                <p:column headerText="Adı">
+                    <h:outputText value="#{lss.name}" />
+                </p:column>
+                <p:column headerText="Sil/Güncelle">
+                    <p:commandButton value="Sil" type ="button"
+
+                                     actionListener="#{lessonController.selectLesson(lss)}"
+                                     onclick="PF('DeleteModal').show();"
+                                     styleClass="ui-priority-primary"
+
+                    />
+
+                    <p:commandButton value="Güncelle"
+                                     oncomplete="PF('guncelleDialog').show();"
+                                     update="lessonFormId:guncelleDialog"
+                                     actionListener="#{lessonController.selectLessonForUpdate(lss)}"
+                                     styleClass="ui-priority-primary"
+
+                    />
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog header="Silme İşlemi" widgetVar="DeleteModal"
+                      modal="true" closable="false" resizable="false"
+                      height="100">
+                <h:outputText value="Silmek istediğinize emin misiniz?" />
+                <br></br><br></br>
+                <h:panelGrid columns="2">
+                    <p:commandButton value="Evet" style="margin-left: 20px"
+                                     actionListener="#{lessonController.delete()}"
+                                     update="lessonTableId growlId"
+                                     onclick="PF('DeleteModal').hide();"/>
+
+                    <p:commandButton value="Hayır"
+                                     style="margin-left: 50px"
+                                     actionListener="#{lessonController.clearSelectedLesson()}"
+                                     onclick="PF('DeleteModal').hide();"/>
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog header="Ekleme İşlemi" widgetVar="ekleDialog"
+                      modal="true" resizable="false"
+                      closable="true">
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Ders Adı" />
+                    <p:inputText id="nameId" value="#{lessonController.lesson.name}" />
+                    <p:outputLabel value="" />
+                    <p:commandButton value="Kaydet"
+                                     style="margin-left: 100px;margin-top: 40px;"
+                                     update="lessonFormId:lessonTableId
+										 lessonFormId:nameId growlId"
+                                     oncomplete="PF('ekleDialog').hide()"
+                                     actionListener="#{lessonController.save}"
+                    />
+                </h:panelGrid>
+            </p:dialog>
+            <p:dialog header="Güncelleme İşlemi" widgetVar="guncelleDialog"
+                      modal="true" resizable="false"
+                      closable="true" id="guncelleDialog">
+                <h:panelGrid columns="2" id="panelGridForGuncelle">
+                    <p:outputLabel value="Ders Adı" />
+                    <p:inputText id="nameIdForUpdate" value="#{lessonController.lesson.name}" />
+                    <p:outputLabel value="" />
+                    <p:commandButton value="Kaydet"
+                                     style="margin-left: 100px;margin-top: 40px;"
+                                     update="lessonFormId:lessonTableId
+											 nameIdForUpdate growlId"
+                                     oncomplete="PF('guncelleDialog').hide()"
+                                     actionListener="#{lessonController.save}"
+                    />
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</body>
+</html>
