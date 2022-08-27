@@ -98,21 +98,21 @@
                   header="Güncelleme İşlemi" modal="true">
             <h:form>
                 <h:panelGrid columns="2">
-                <p:outputLabel value="Öğretmen Adı :" />
-                <p:inputText value="#{teacherController.selectedTeacher.name}" />
-                <p:outputLabel value="Öğretmen Soyadı :" />
-                <p:inputText value="#{teacherController.selectedTeacher.surname}" />
-                <p:outputLabel value="Öğretmen Doğum Tarihi :" />
-                <p:datePicker value="#{teacherController.selectedTeacher.birthDate}"/>
-                <p:outputLabel value="Branş :" />
-                <p:selectOneMenu value="#{teacherController.selectedTeacher.lesson}"
-                                 converter="lessonConverter"
-                                 editable="true"
-                                 effect="fold">
-                    <f:selectItems itemLabel="Birini Seçiniz" itemValue="" itemDisabled="true"/>
-                <f:selectItems var="lesson" value="#{teacherController.lessonList}"
-                itemValue="#{lesson}" itemLabel="#{lesson.name}"/>
-                </p:selectOneMenu>
+                    <p:outputLabel value="Öğretmen Adı :" />
+                    <p:inputText value="#{teacherController.selectedTeacher.name}" />
+                    <p:outputLabel value="Öğretmen Soyadı :" />
+                    <p:inputText value="#{teacherController.selectedTeacher.surname}" />
+                    <p:outputLabel value="Öğretmen Doğum Tarihi :" />
+                    <p:datePicker value="#{teacherController.selectedTeacher.birthDate}"/>
+                    <p:outputLabel value="Branş :" />
+                    <p:selectOneMenu value="#{teacherController.selectedTeacher.lesson}"
+                                     converter="lessonConverter"
+                                     editable="true"
+                                     effect="fold">
+                        <f:selectItems itemLabel="Birini Seçiniz" itemValue="" itemDisabled="true"/>
+                        <f:selectItems var="lesson" value="#{teacherController.lessonList}"
+                                       itemValue="#{lesson}" itemLabel="#{lesson.name}"/>
+                    </p:selectOneMenu>
                     <p:outputLabel value="Okul :" />
                     <p:selectOneMenu value="#{teacherController.selectedTeacher.school}"
                                      converter="schoolConverter"

@@ -32,24 +32,7 @@ public class StudentServiceImp implements StudentService {
 
     @Transactional
     @Override
-    public void save(StudentDTO studentDto) throws ParseException {
-        Student student = new Student();
-        /*
-        student.setBirthDate(formatter.parse(studentDto.getBirthDate()));
-        */
-        student.setBirthDate(studentDto.getBirthDate());
-        student.setNumber(studentDto.getNumber());
-        student.setName(studentDto.getName());
-        student.setSurname(studentDto.getSurname());
-        student.setCreatedDate(new Date());
-        StudentClass studentClass = this.studentClassRepository
-                .findById(studentDto.getStudentClassId())
-                .orElse(null);
-        School school = this.schoolRepository
-                .findById(studentDto.getSchoolId())
-                .orElse(null);
-        student.setSchool(school);
-        student.setStudentClass(studentClass);
+    public void save(Student student) {
         this.studentRepository.save(student);
     }
 
@@ -61,31 +44,19 @@ public class StudentServiceImp implements StudentService {
 
     @Transactional
     @Override
-    public void update(StudentDTO studentDTO) {
-        Optional<Student> studentOptional = this.studentRepository
-                .findById(studentDTO.getId());
-        if(studentOptional.isPresent()){
-            Student student = studentOptional.get();
-            student.setSurname(studentDTO.getSurname());
-            student.setName(studentDTO.getName());
-            student.setBirthDate(studentDTO.getBirthDate());
-            student.setNumber(studentDTO.getNumber());
-            StudentClass studentClass = this.studentClassRepository
-                    .findById(studentDTO.getStudentClassId())
-                    .orElse(null);
-            School school = this.schoolRepository
-                    .findById(studentDTO.getSchoolId())
-                    .orElse(null);
-            student.setSchool(school);
-            student.setStudentClass(studentClass);
+    public void update(Student student) {
             this.studentRepository.save(student);
-        }
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
-        this.studentRepository.deleteById(id);
+    public void delete(Student student) {
+        this.studentRepository.delete(student);
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return (List<Student>) this.studentRepository.findAll();
     }
 
     @Transactional(readOnly = true)

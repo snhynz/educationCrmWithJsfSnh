@@ -41,13 +41,13 @@ public class LessonController {
 
     public List<Lesson> getList(){return this.lessonService.findAll();}
 
-    public void delete(){
-        this.lessonService.delete(selectedLesson);
+    public void delete(Lesson lesson){
+        this.lessonService.delete(lesson);
         infoMessage("Başarılı Silindi",
-                "Silinen Ders : ",this.selectedLesson);
-        selectedLesson=new Lesson();
+                "Silinen Ders : ",lesson);
+        this.lessonList.remove(lesson);
     }
-    public void update(Lesson lesson){
+    public void update(){
         this.lessonService.update(this.selectedLesson);
         infoMessage("Güncellendi.",
                 "Güncellenen Ders : ",this.selectedLesson);

@@ -43,61 +43,30 @@ public class GradeServiceImp implements GradeService {
 
     @Transactional
     @Override
-    public void update(GradeDTO gradeDTO) {
-        Optional<Grade> gradeOptional =
-                this.gradeRepository.findById(gradeDTO.getId());
-        if(gradeOptional.isPresent()){
-            Grade grade = gradeOptional.get();
-            grade.setGrade(gradeDTO.getGrade());
-            Student student =
-                    this.studentRepository
-                            .findById(gradeDTO.getStudentId())
-                            .orElse(null);
-            grade.setStudent(student);
-            Teacher teacher =
-                    this.teacherRepository
-                            .findById(gradeDTO.getTeacherId())
-                            .orElse(null);
-            grade.setTeacher(teacher);
+    public void update(Grade grade) {
             this.gradeRepository.save(grade);
-        }
-
     }
 
     @Transactional
     @Override
-    public void save(GradeDTO gradeDTO) {
-        Grade grade = new Grade();
-        grade.setGrade(gradeDTO.getGrade());
-        Student student =
-                this.studentRepository
-                        .findById(gradeDTO.getStudentId())
-                        .orElse(null);
-        grade.setStudent(student);
-        Teacher teacher =
-                this.teacherRepository
-                        .findById(gradeDTO.getTeacherId())
-                        .orElse(null);
-        grade.setTeacher(teacher);
+    public void save(Grade grade) {
         this.gradeRepository.save(grade);
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
+    public void delete(Grade grade) {
         /*Grade grade =
                 this.gradeRepository.findById(id).get();
         grade.setActive(false);
         this.gradeRepository.save(grade);*/
-        this.gradeRepository.deleteById(id);
+        this.gradeRepository.delete(grade);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<GradeDTO> findAll() {
-        return modelMapperHelper.mapAll(
-                (List<Grade>)this.gradeRepository.findAll()
-                ,GradeDTO.class);
+    public List<Grade> findAll() {
+        return (List<Grade>) this.gradeRepository.findAll();
     }
 
     @Override

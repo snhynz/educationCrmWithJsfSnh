@@ -1,6 +1,7 @@
 package com.example.educationCrm.serviceImp;
 
 import com.example.educationCrm.model.dto.StudentClassDTO;
+import com.example.educationCrm.model.entity.Lesson;
 import com.example.educationCrm.model.entity.StudentClass;
 import com.example.educationCrm.repository.StudentClassRepository;
 import com.example.educationCrm.service.StudentClassService;
@@ -37,5 +38,10 @@ public class StudentClassImp implements StudentClassService {
     @Override
     public void delete(StudentClass studentClass) {
         this.studentClassRepository.delete(studentClass);
+    }
+
+    @Override
+    public StudentClass findByName(String name) {
+        return this.studentClassRepository.findStudentClassByName(name);
     }
 }
