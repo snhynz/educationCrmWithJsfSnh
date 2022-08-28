@@ -70,4 +70,9 @@ public class StudentServiceImp implements StudentService {
     public Student findById(Long id) {
         return this.studentRepository.findById(id).orElse(null);
     }
+    @Transactional(readOnly = true)
+    @Override
+    public List<Student> findAllStudent() {
+        return (List<Student>) this.studentRepository.findAll();
+    }
 }

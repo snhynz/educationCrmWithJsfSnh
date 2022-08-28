@@ -18,4 +18,6 @@ public interface StudentService {
     List<StudentInformationDTO> getBySchoolName(String schoolName);
 
     Student findById(Long id);
+
+    List<Student> findAllStudent();
 }
